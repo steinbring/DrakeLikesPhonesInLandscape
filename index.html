@@ -1,0 +1,68 @@
+<!-- You can see the files behind this site at: https://github.com/steinbring/DrakeLikesPhonesInLandscape/ -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Drake likes phones in landscape</title>
+</head>
+<body>
+	<div id="app">
+		<img src="https://assets.codepen.io/3461446/drake-yes.png" v-if="isPhoneInLandScape" />
+		<img src="https://assets.codepen.io/3461446/drake-no.png" v-if="!isPhoneInLandScape" />
+	</div>
+
+	<style type="text/css">
+		html {
+			background-color: #d4c00a;
+			text-align: center;
+		}
+	</style>
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/vue/1.0.28/vue.min.js"></script>
+
+	<script type="text/javascript">
+		new Vue({
+		  el: "#app",
+		  data() {
+		    return {
+		      window: {
+						width: 0,
+						height: 0
+					}
+		    };
+		  },
+			created() {
+				window.addEventListener('resize', this.handleResize);
+				this.handleResize();
+			},
+			destroyed() {
+				window.removeEventListener('resize', this.handleResize);
+			},
+			methods: {
+				handleResize() {
+					this.window.width = window.innerWidth;
+					this.window.height = window.innerHeight;
+				}
+			},
+			computed: {
+		    isTouchDevice: function () {
+					return window.matchMedia("(pointer: coarse)").matches
+				},
+				isDesktop: function () {
+					if(navigator.userAgent.includes("Mac OS X") || navigator.userAgent.includes("Windows") || navigator.userAgent.includes("CrOS"))
+						return true;
+					else
+						return false;
+				},
+				isPhoneInLandScape: function () {
+					if(this.isTouchDevice && !this.isDesktop && window.width > window.height)
+						return true;
+					else
+						return false;
+				}
+			}
+		});
+	</script>
+</body>
+</html>
