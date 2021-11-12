@@ -55,8 +55,14 @@
 					else
 						return false;
 				},
+				isLandScape: function () {
+					if(this.window.width > this.window.height)
+						return true;
+					else
+						return false;
+				},
 				isPhoneInLandScape: function () {
-					if(this.isTouchDevice && !this.isDesktop && window.width > window.height)
+					if(this.isTouchDevice && !this.isDesktop && this.isLandScape)
 						return true;
 					else
 						return false;
